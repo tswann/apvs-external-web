@@ -2,9 +2,7 @@ version: '2'
 services:
 
   node-external-apvs:
-    build:
-      context: ./
-      dockerfile: Dockerfile-dev
+    build: .
     volumes:
       - "./build.sh:/usr/src/app/build.sh"
       - "./app:/usr/src/app/app"

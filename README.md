@@ -6,12 +6,13 @@ Beta implementation of the Assisted Prison Visits Scheme external web applicatio
 
 ## Requirements
 
-* Docker (Including Docker Compose)
 * Node 6 (Including NPM) - If running locally
+* (optional) Docker (Including Docker Compose)
 
 ## Run
 
 ### Locally
+
 Install dependencies and run on port 3000.
 
 ```
@@ -21,36 +22,13 @@ npm start
 ```
 
 ### With Docker Compose
-This will run the External Web application in development mode.
 
+This will run the External Web application in container with local files mapped by volume using nodemon and caching modules.
 ```
-docker-compose build
-docker-compose up
-```
-
-### With Docker
-
-```
-# Compile static resources and container image
-npm install
 ./build.sh
-docker build -t apvs-external-web-node:prod .
-```
-
-##### Run Production version:
-```
-docker run --rm
-    -p 3000:3000
-    --name apvs-external-web-node-prod apvs-external-web-node:prod
-```
-
-##### Run development version:
-```
-docker run --rm -t -i
-    -p 3000:3000
-    -v $(pwd)/app:/usr/src/app/app
-    -v $(pwd)/cache_node_modules:/usr/src/app/node_modules
-    --name apvs-external-web-node-dev apvs-external-web-node:dev
+docker-compose up
+# force image rebuild
+# docker-compose up --build
 ```
 
 ## Test
