@@ -7,6 +7,8 @@ const ValidationError = require('../../../../services/errors/validation-error')
 const ERROR_MESSAGES = require('../../../../services/validators/validation-error-messages')
 const FileUpload = require('../../../../services/domain/file-upload')
 const ClaimDocumentInsert = require('../../../../services/data/insert-file-upload-details-for-claim')
+const InsertTask = require('../../../../services/data/insert-task')
+const taskEnum = require('../../../../constants/tasks-enum')
 const csrfProtection = require('csurf')({ cookie: true })
 const generateCSRFToken = require('../../../../services/generate-csrf-token')
 const decrypt = require('../../../../services/helpers/decrypt')
@@ -82,6 +84,7 @@ function post (req, res, next, redirectURL) {
           var claimId = addClaimIdIfNotBenefitDocument(req.query.document, req.params.claimId)
 
           ClaimDocumentInsert(reference, id, claimId, fileUpload).then(function () {
+            InsertTask(reference, eligibilityId, claimId, taskEnum.CHECK_DOCUMENTS)
             res.redirect(redirectURL)
           }).catch(function (error) {
             next(error)
