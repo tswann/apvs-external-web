@@ -16,5 +16,8 @@ module.exports = function (reference, eligibilityId, claimId, fileUpload) {
     Filepath: fileUpload.path,
     DateSubmitted: fileUpload.dateSubmitted,
     IsEnabled: true
+  }).returning('ClaimDocumentId')
+    .then(function (insertedIds) {
+    return insertedIds[0]
   })
 }

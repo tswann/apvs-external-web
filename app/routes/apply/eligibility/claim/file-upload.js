@@ -83,9 +83,10 @@ function post (req, res, next, redirectURL) {
 
           var claimId = addClaimIdIfNotBenefitDocument(req.query.document, req.params.claimId)
 
-          ClaimDocumentInsert(reference, id, claimId, fileUpload).then(function () {
-            InsertTask(reference, eligibilityId, claimId, taskEnum.CHECK_DOCUMENTS)
-            res.redirect(redirectURL)
+          ClaimDocumentInsert(reference, id, claimId, fileUpload).then(function (claimDocumentId) {
+            InsertTask(reference, id, claimId, taskEnum.CHECK_DOCUMENTS, claimDocumentId).then(function() {
+              res.redirect(redirectURL)
+            })
           }).catch(function (error) {
             next(error)
           })
