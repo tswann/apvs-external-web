@@ -18,6 +18,6 @@ module.exports = function (reference, eligibilityId, claimId, fileUpload) {
     IsEnabled: true
   }).returning('ClaimDocumentId')
     .then(function (insertedIds) {
-    return insertedIds[0]
-  })
+      return insertedIds[0]
+    })
 }
